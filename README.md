@@ -20,7 +20,7 @@
  
 ## How to test API
 
-Test Service is deploy on localhost:8082. So far, there is only one API is: http://localhost:8080/api/test/message
+Test Service is deployed on `localhost:8082`. So far, there is only one API is: http://localhost:8080/api/test/message
 
 To access the API through **Gateway**, try http://localhost:8080/api/test/message
 
