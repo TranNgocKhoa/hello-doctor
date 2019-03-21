@@ -1,0 +1,79 @@
+version: '3'
+
+services: 
+  
+
+   hellodoctor-discovery-server:
+      container_name: hellodoctor-discovery-server_1
+      image: tranngockhoa/hellodoctor-discovery-server
+      networks: 
+         - hellodoctor-network
+      ports:
+         - 8761:8761
+      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-configserver:8888","-timeout=60s","--","java","-jar","hellodoctor-discovery-server.jar"]
+      depends_on:
+         - hellodoctor-configserver
+      environment:
+         DNS_CONFIG_SERVER: hellodoctor-configserver
+
+   hellodoctor-api-gateway:
+      container_name: hellodoctor-api-gateway_1
+      image: tranngockhoa/hellodoctor-api-gateway
+      networks: 
+         - hellodoctor-network
+      ports:
+         - 8080:8080
+      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:8761","-timeout=60s","--","java","-jar","hellodoctor-api-gateway.jar"]
+
+      depends_on:
+         - hellodoctor-configserver
+         - hellodoctor-discovery-server
+      environment:
+         DNS_DISCOVERY_SERVER: hellodoctor-discovery-server
+         SPRING_RABBITMQ_HOST: rabbitmq-server
+         DNS_CONFIG_SERVER: hellodoctor-configserver
+
+   hellodoctor-configserver:
+      container_name: hellodoctor-configserver_1
+      image: tranngockhoa/hellodoctor-configserver
+      networks: 
+         - hellodoctor-network
+      ports:
+         - 8888:8888
+
+   hellodoctor-test-service:
+      container_name: hellodoctor-test-service_1
+      image: tranngockhoa/hellodoctor-test-service
+      networks: 
+         - hellodoctor-network
+      ports:
+         - 8082:8082
+      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:8761","-timeout=60s","--","java","-jar","hellodoctor-test-service.jar"]
+
+      depends_on:
+         - hellodoctor-configserver
+         - hellodoctor-discovery-server
+      environment:
+         DNS_DISCOVERY_SERVER: hellodoctor-discovery-server
+         DNS_CONFIG_SERVER: hellodoctor-configserver
+
+   rabbitmq-server:
+      image: "rabbitmq:3-management"
+      hostname: rabbitmq-server
+      networks:
+         - hellodoctor-network
+      ports:
+         - 5000:15672
+         - 500:5672
+
+   zipkin-server:
+      image: openzipkin/zipkin
+      networks:
+         - hellodoctor-network
+      ports:
+         - 9411:9411
+      environment:
+        RABBIT_ADDRESSES: rabbitmq-server
+
+networks:
+   hellodoctor-network:
