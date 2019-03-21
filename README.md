@@ -13,6 +13,10 @@
  1. Execute file **buildImages.bat** by `$ ./buildImages.bat`
  2. Execute `$ docker-compose up -d`
  
+ # How to run services on local
+ 
+ Updating...
+ 
  
 ## How to test API
 
