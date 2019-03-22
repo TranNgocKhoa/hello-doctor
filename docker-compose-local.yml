@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+
+  rabbitmq-server:
+    image: "rabbitmq:3-management"
+    hostname: rabbitmq-server
+    networks:
+      - hellodoctor-network
+    ports:
+      - 5000:15672
+      - 500:5672
+
+  zipkin-server:
+    image: openzipkin/zipkin
+    networks:
+      - hellodoctor-network
+    ports:
+      - 9411:9411
+    environment:
+      RABBIT_ADDRESSES: rabbitmq-server
+
+networks:
+  hellodoctor-network:

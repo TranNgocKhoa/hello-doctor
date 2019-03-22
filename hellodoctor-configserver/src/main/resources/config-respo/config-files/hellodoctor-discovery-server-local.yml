@@ -1,0 +1,18 @@
+# Name of the Naming Server
+spring:
+  application:
+    name: hellodoctor-discovery-server
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: localhost
+    health-check-url-path: /actuator/health
+    status-page-url-path: /actuator/info
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+logging:
+  level:
+    com.netflix.discovery: 'OFF'
+    org.springframework.cloud: 'DEBUG'

@@ -1,4 +1,4 @@
-FROM openjdk:8u181-jdk-stretch
+FROM openjdk:8-jre-alpine
 
 MAINTAINER Tran Ngoc Khoa <"tranngockhoa.spk@gmail.com">
 

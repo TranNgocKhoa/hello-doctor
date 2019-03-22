@@ -1,0 +1,22 @@
+# Name of the Application
+spring:
+  zipkin:
+    baseUrl: http://tracing-server:9411
+  application:
+    name: hellodoctor-api-gateway
+
+# Port of the Server
+server:
+  port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:
+        http://localhost:8761/eureka/
+
+zuul:
+  prefix: /api
+  ignoredServices: '*'
+  routes:
+    hellodoctor-api-gateway: /gateway/**
+    hellodoctor-test-service: /test/**
