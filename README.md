@@ -15,7 +15,17 @@
  
  # How to run services on local
  
- Updating...
+ Change profile of all project to `local` except Config Server.
+ 
+ Run in this order:
+ 
+ 1. Config Server
+
+ 2. Discovery Server
+
+ 2. Api Gateway
+
+ 4. Remaining Services
  
  
 ## How to test API
