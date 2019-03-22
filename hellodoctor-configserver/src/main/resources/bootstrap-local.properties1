@@ -3,5 +3,6 @@ spring.application.name=hellodoctor-configserver
 #Server portGIT_REPO
 server.port=8888
 # Github URL to connect remote Repository
+spring.profile=local
 spring.cloud.config.server.native.search-locations=classpath:/config-respo/config-files
 

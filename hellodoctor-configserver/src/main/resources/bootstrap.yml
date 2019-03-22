@@ -1,0 +1,31 @@
+#Server port
+server:
+  port: 8888
+#Application Name
+spring:
+  application:
+    name: hellodoctor-configserver
+  # Github URL to connect remote Repository
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/TranNgocKhoa/config-respo
+  # Search path in the remote Repository
+          search-paths: config-files*
+
+---
+#spring:
+#  application:
+#    name: hellodoctor-configserver
+#  profiles: native
+#  cloud:
+#    config:
+#      server:
+#        git:
+#          uri: file:///classpath:/config-respo/config-files
+#
+#
+
+
+
