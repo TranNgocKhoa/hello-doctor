@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+    <select id="findByUsername" resultType="HDUser" parameterType="string">
+        SELECT id, `name`, email
+        FROM users
+        WHERE `name` = #{username}
+    </select>
+
+    <select id="findByEmail" resultType="HDUser" parameterType="string">
+        SELECT id, `name`, email
+        FROM users
+        WHERE `email` = #{email}
+    </select>
+
+    <select id="isExistedUser" parameterType="string" resultType="int">
+        SELECT COUNT(*) AS cnt
+        FROM users
+        WHERE `name` = #{username}
+    </select>
+
+    <insert id="saveUser">
+        INSERT INTO users(`name`, pass, email)
+        VALUES(#{username}, md5(#{password}), #{email})
+        <selectKey resultType="long" keyProperty="userId" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <select id="getHDGoogleUser" parameterType="string" resultType="HDUser">
+        SELECT u.id, u.`name`, g.email
+        FROM users u
+        INNER JOIN users_sns s ON u.id = s.user_id
+        INNER JOIN users_google g ON (s.sns_id = g.id AND s.type = 'GOOGLE')
+        WHERE g.gg_id = #{googleId}
+    </select>
+
+    <select id="getHDFacebookUser" parameterType="string" resultType="HDUser">
+        SELECT u.id, u.`name`, fb.email
+        FROM users u
+        INNER JOIN users_sns s ON u.id = s.user_id
+        INNER JOIN users_facebook fb ON (s.sns_id = fb.id AND s.sns_type = 'FACEBOOK')
+        WHERE fb.fb_id = #{fbId}
+    </select>
+
+    <insert id="saveUsersFacebook">
+        INSERT INTO users_facebook(fb_id, email, `name`, first_name, last_name, img_url, img_height, img_width,
+        `timestamp`)
+        VALUES (#{id}, #{email}, #{name}, #{firstName}, #{lastName}, #{imgUrl}, #{imgHeight}, #{imgWidth},
+        UNIX_TIMESTAMP())
+        <selectKey resultType="long" keyProperty="userRefId" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="saveUsersGoogle">
+        INSERT INTO users_google(gg_id, email, disp_name, img_url, `timestamp`)
+        VALUES (#{id}, #{originalEmail}, #{displayName}, #{imgUrl}, UNIX_TIMESTAMP())
+        <selectKey resultType="long" keyProperty="userRefId" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="saveSnsUser">
+        INSERT INTO users(`name`, pass, email)
+        VALUES (#{displayName}, '', '')
+        <selectKey resultType="long" keyProperty="userId" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="mappingSnsUser">
+        INSERT INTO users_sns(user_id, sns_id, `type`, `timestamp`)
+        VALUES (#{userId}, #{snsId}, #{snsType}, UNIX_TIMESTAMP())
+    </insert>
+
+
+
+    <update id="updateSnsUser">
+        UPDATE users
+        SET `name`=#{username}, pass=md5(#{password}), email=#{email}
+        WHERE id=#{userId};
+    </update>
+
+    <insert id="saveResetPw">
+        REPLACE INTO reset_password_keys (user_id, time_requested, reset_key, ip_requested)
+        VALUES(#{userId}, UNIX_TIMESTAMP(), #{resetKey}, #{ip})
+    </insert>
+
+
+</mapper>
