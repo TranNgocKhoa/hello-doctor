@@ -2,7 +2,7 @@
  
  ## How to import this project to IntelliJ IDEA
  
- I don't know how to do in other IDE but in IntelliJ IDEA, you could do following steops:
+ I don't know how to do in other IDE but in IntelliJ IDEA, you could do following steps:
  
  1. Open project's folder
  2. On **Maven Toolbox**, click **(+)** button *(All Maven Projects)* and then choose `pom.xml` files.
@@ -19,13 +19,16 @@
  
  Run in this order:
  
+ 
  1. Config Server
+ 
+ 2. Run command `docker-compose -f docker-compose-local.yml up -d`
 
- 2. Discovery Server
+ 3. Discovery Server
 
- 2. Api Gateway
+ 4. Api Gateway
 
- 4. Remaining Services
+ 5. Remaining Services
  
  
 ## How to test API
@@ -45,3 +48,6 @@ To access the API through **Gateway**, try http://localhost:8080/api/test/messag
 https://github.com/spring-petclinic
 
 https://github.com/numery009
+
+---------
+PRs are welcome!
