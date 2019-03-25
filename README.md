@@ -18,7 +18,7 @@
  
  ## How to run services on local
  
- Change profile of all project to `local` except Config Server.
+ Change profile of all projects to `local` except Config Server.
  
  Run in this order:
  
