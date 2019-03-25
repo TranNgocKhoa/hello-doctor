@@ -1,4 +1,7 @@
-﻿# hello-doctor
+﻿# Hello Doctor - Microservices architecture
+ 
+![Architecture][architecture]
+
  
  ## How to import this project to IntelliJ IDEA
  
@@ -13,7 +16,7 @@
  1. Execute file **buildImages.bat** by `$ ./buildImages.bat`
  2. Execute `$ docker-compose up -d`
  
- # How to run services on local
+ ## How to run services on local
  
  Change profile of all project to `local` except Config Server.
  
@@ -41,7 +44,29 @@ To access the API through **Gateway**, try http://localhost:8080/api/test/messag
 
 **Config Server** http://localhost:8888/discovery-server/default
 
+---------------------------------------------
 
+# Understanding the Hello Doctor Application
+
+In this project, I will implement a system which could help users to find a good clinic near their location. I'm planning to use a Language Understanding service and a Map service to help me get a good or acceptable result.
+
+### Common module
+
+### Config Server
+
+### Discovery Server
+
+### API Gateway
+
+### Auth
+
+### Account Service
+
+### Booking Service
+
+### Location Service
+
+### LU Service
 
 ## Thanks to
 
@@ -51,3 +76,7 @@ https://github.com/numery009
 
 ---------
 PRs are welcome!
+
+
+
+[architecture]: https://github.com/TranNgocKhoa/hello-doctor/raw/master/images/Architecture.jpg "Architecture"
