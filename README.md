@@ -68,6 +68,9 @@ In this project, I will implement a system which could help users to find a good
 
 ### LU Service
 
+## Wiki
+Please check Wiki page: https://github.com/TranNgocKhoa/hello-doctor/wiki
+
 ## Thanks to
 
 https://github.com/spring-petclinic
