@@ -15,3 +15,6 @@ call mvn -Dmaven.test.skip=true clean package
 cd ..
 cd auth
 call mvn -Dmaven.test.skip=true clean package
+cd ..
+cd booking
+call mvn -Dmaven.test.skip=true clean package

@@ -73,6 +73,22 @@ services:
          DNS_DISCOVERY_SERVER: hellodoctor-discovery-server
          DNS_CONFIG_SERVER: hellodoctor-configserver
 
+
+   hellodoctor-booking-service:
+      container_name: hellodoctor-booking-service_1
+      image: tranngockhoa/hellodoctor-booking-service
+      networks:
+         - hellodoctor-network
+      ports:
+         - 8083:8083
+      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:8761","-timeout=60s","--","java","-jar","hellodoctor-booking-service.jar"]
+      depends_on:
+         - hellodoctor-configserver
+         - hellodoctor-discovery-server
+      environment:
+         DNS_DISCOVERY_SERVER: hellodoctor-discovery-server
+         DNS_CONFIG_SERVER: hellodoctor-configserver
+
    rabbitmq-server:
       image: "rabbitmq:3-management"
       hostname: rabbitmq-server
