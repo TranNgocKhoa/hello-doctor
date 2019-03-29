@@ -18,3 +18,9 @@ call mvn -Dmaven.test.skip=true clean package
 cd ..
 cd booking
 call mvn -Dmaven.test.skip=true clean package
+cd ..
+cd account
+call mvn -Dmaven.test.skip=true clean package
+cd ..
+cd db-toollib
+call mvn -Dmaven.test.skip=true clean package

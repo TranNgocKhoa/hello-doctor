@@ -80,8 +80,23 @@ services:
       networks:
          - hellodoctor-network
       ports:
-         - 8083:8083
+         - 8084:8084
       entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:8761","-timeout=60s","--","java","-jar","hellodoctor-booking-service.jar"]
+      depends_on:
+         - hellodoctor-configserver
+         - hellodoctor-discovery-server
+      environment:
+         DNS_DISCOVERY_SERVER: hellodoctor-discovery-server
+         DNS_CONFIG_SERVER: hellodoctor-configserver
+
+   hellodoctor-account-service:
+      container_name: hellodoctor-account-service_1
+      image: tranngockhoa/hellodoctor-account-service
+      networks:
+         - hellodoctor-network
+      ports:
+         - 8085:8085
+      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:8761","-timeout=60s","--","java","-jar","hellodoctor-account-service.jar"]
       depends_on:
          - hellodoctor-configserver
          - hellodoctor-discovery-server
