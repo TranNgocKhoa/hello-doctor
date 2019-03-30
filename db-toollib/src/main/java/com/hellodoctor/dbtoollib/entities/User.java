@@ -30,7 +30,7 @@ public class User implements Serializable {
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "user")
-    private UserProfile userProfile;
+    private Profile profile;
     @ManyToMany
     @JoinTable(
             name = "users_roles",

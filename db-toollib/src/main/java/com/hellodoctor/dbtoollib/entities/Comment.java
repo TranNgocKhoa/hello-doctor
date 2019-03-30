@@ -6,12 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author Khoa
- * @created 3/28/2019
+ * @created 3/30/2019
  */
 
 @Entity
@@ -19,9 +17,15 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@DiscriminatorValue("PAT")
-public class UserProfile extends Profile {
-    private float weight;
-    private float height;
+public class Comment {
+    @Id
+    private Long id;
+    @OneToOne
+    @JoinColumn
+    @MapsId
+    private Booking book;
+    private DoctorProfile doctorId;
+    private float rate;
+    private String content;
 
 }
