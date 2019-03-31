@@ -1,4 +1,4 @@
-﻿﻿# Hello Doctor - Microservices architecture
+# Hello Doctor - Microservices architecture
  
 ![Architecture][architecture]
 
