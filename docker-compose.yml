@@ -104,6 +104,21 @@ services:
          DNS_DISCOVERY_SERVER: hellodoctor-discovery-server
          DNS_CONFIG_SERVER: hellodoctor-configserver
 
+   hellodoctor-location-service:
+      container_name: hellodoctor-location-service_1
+      image: tranngockhoa/hellodoctor-location-service
+      networks:
+         - hellodoctor-network
+      ports:
+         - ${LOCAT_SERVIC_PORT_TARGET}:${LOCAT_SERVIC_PORT_PUBLIS}
+      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:${DISCO_SERVER_PORT_PUBLIS}","-timeout=60s","--","java","-jar","hellodoctor-location-service.jar"]
+      depends_on:
+         - hellodoctor-configserver
+         - hellodoctor-discovery-server
+      environment:
+         DNS_DISCOVERY_SERVER: hellodoctor-discovery-server
+         DNS_CONFIG_SERVER: hellodoctor-configserver
+
    rabbitmq-server:
       image: "rabbitmq:3-management"
       hostname: rabbitmq-server

@@ -22,5 +22,8 @@ cd ..
 cd account
 call mvn -Dmaven.test.skip=true clean package
 cd ..
+cd location
+call mvn -Dmaven.test.skip=true clean package
+cd ..
 cd db-toollib
 call mvn -Dmaven.test.skip=true clean package
