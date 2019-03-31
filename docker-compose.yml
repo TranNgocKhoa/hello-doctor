@@ -9,8 +9,8 @@ services:
       networks: 
          - hellodoctor-network
       ports:
-         - 8761:8761
-      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-configserver:8888","-timeout=60s","--","java","-jar","hellodoctor-discovery-server.jar"]
+         - ${DISCO_SERVER_PORT_TARGET}:${DISCO_SERVER_PORT_PUBLIS}
+      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-configserver:${CONFI_SERVER_PORT_PUBLIS}","-timeout=60s","--","java","-jar","hellodoctor-discovery-server.jar"]
       depends_on:
          - hellodoctor-configserver
       environment:
@@ -22,8 +22,8 @@ services:
       networks: 
          - hellodoctor-network
       ports:
-         - 8080:8080
-      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:8761","-timeout=60s","--","java","-jar","hellodoctor-api-gateway.jar"]
+         - ${GATEW_SERVER_PORT_TARGET}:${GATEW_SERVER_PORT_PUBLIS}
+      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:${DISCO_SERVER_PORT_PUBLIS}","-timeout=60s","--","java","-jar","hellodoctor-api-gateway.jar"]
 
       depends_on:
          - hellodoctor-configserver
@@ -39,7 +39,7 @@ services:
       networks: 
          - hellodoctor-network
       ports:
-         - 8888:8888
+         - ${CONFI_SERVER_PORT_TARGET}:${CONFI_SERVER_PORT_PUBLIS}
 
    hellodoctor-test-service:
       container_name: hellodoctor-test-service_1
@@ -48,7 +48,7 @@ services:
          - hellodoctor-network
       ports:
          - 8082:8082
-      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:8761","-timeout=60s","--","java","-jar","hellodoctor-test-service.jar"]
+      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:${DISCO_SERVER_PORT_PUBLIS}","-timeout=60s","--","java","-jar","hellodoctor-test-service.jar"]
 
       depends_on:
          - hellodoctor-configserver
@@ -63,8 +63,8 @@ services:
       networks:
          - hellodoctor-network
       ports:
-         - 8083:8083
-      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:8761","-timeout=60s","--","java","-jar","hellodoctor-auth.jar"]
+         - ${AUTHE_SERVIC_PORT_TARGET}:${AUTHE_SERVIC_PORT_PUBLIS}
+      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:${DISCO_SERVER_PORT_PUBLIS}","-timeout=60s","--","java","-jar","hellodoctor-auth.jar"]
 
       depends_on:
          - hellodoctor-configserver
@@ -80,8 +80,8 @@ services:
       networks:
          - hellodoctor-network
       ports:
-         - 8084:8084
-      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:8761","-timeout=60s","--","java","-jar","hellodoctor-booking-service.jar"]
+         - ${BOOKI_SERVIC_PORT_TARGET}:${BOOKI_SERVIC_PORT_PUBLIS}
+      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:${DISCO_SERVER_PORT_PUBLIS}","-timeout=60s","--","java","-jar","hellodoctor-booking-service.jar"]
       depends_on:
          - hellodoctor-configserver
          - hellodoctor-discovery-server
@@ -95,8 +95,8 @@ services:
       networks:
          - hellodoctor-network
       ports:
-         - 8085:8085
-      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:8761","-timeout=60s","--","java","-jar","hellodoctor-account-service.jar"]
+         - ${ACCOU_SERVIC_PORT_TARGET}:${ACCOU_SERVIC_PORT_PUBLIS}
+      entrypoint: ["./dockerize","-wait=tcp://hellodoctor-discovery-server:${DISCO_SERVER_PORT_PUBLIS}","-timeout=60s","--","java","-jar","hellodoctor-account-service.jar"]
       depends_on:
          - hellodoctor-configserver
          - hellodoctor-discovery-server
