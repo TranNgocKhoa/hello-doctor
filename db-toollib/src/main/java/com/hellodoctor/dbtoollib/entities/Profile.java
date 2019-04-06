@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Khoa
@@ -23,6 +24,7 @@ public abstract class Profile implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Gender gender;
+    private String name;
     private String phoneNumber;
     private Date dateOfBirth;
     private String description;
@@ -31,4 +33,7 @@ public abstract class Profile implements Serializable {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+
+
 }

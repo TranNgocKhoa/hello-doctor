@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author Khoa
@@ -28,4 +29,11 @@ public class DoctorProfile extends Profile{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
+    @OneToMany(
+            mappedBy = "doctorId",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Booking> doctorBooks;
+
 }

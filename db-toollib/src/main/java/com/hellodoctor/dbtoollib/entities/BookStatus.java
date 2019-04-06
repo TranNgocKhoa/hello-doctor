@@ -5,6 +5,7 @@ package com.hellodoctor.dbtoollib.entities;
  * @created 3/30/2019
  */
 public enum BookStatus {
+    WAITING("WAITING"),
     PATIENT_CANCEL("PATIENT_CANCEL"),
     DOCTOR_CANCEL("DOCTOR_CANCEL"),
     EXPIRED("EXPIRED");

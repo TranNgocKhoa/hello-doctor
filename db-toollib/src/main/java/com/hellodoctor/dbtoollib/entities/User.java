@@ -26,6 +26,8 @@ public class User implements Serializable {
     private Long id;
     private String password;
     private String email;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 8)
     private UserStatus status;
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,

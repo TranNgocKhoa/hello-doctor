@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Khoa
@@ -23,5 +24,11 @@ import java.util.Date;
 public class UserProfile extends Profile {
     private float weight;
     private float height;
+    @OneToMany(
+            mappedBy = "patientId",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Booking> patientBooks;
 
 }
