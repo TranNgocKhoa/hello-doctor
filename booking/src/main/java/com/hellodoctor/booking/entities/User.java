@@ -21,14 +21,18 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class User implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String password;
     private String email;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 8)
     private UserStatus status;
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "user")
-    private UserProfile userProfile;
+    private Profile profile;
     @ManyToMany
     @JoinTable(
             name = "users_roles",

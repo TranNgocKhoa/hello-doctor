@@ -9,6 +9,11 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Khoa
+ * @created 4/1/2019
+ */
+
 @Entity
 @Getter
 @Setter
@@ -26,5 +31,5 @@ public class Department {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<DoctorResultDto> doctor;
+    private List<DoctorProfile> doctor;
 }

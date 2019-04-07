@@ -1,9 +1,11 @@
 package com.hellodoctor.booking.repositories;
 
 import com.hellodoctor.booking.entities.DoctorProfile;
-import org.springframework.data.domain.Page;
+import com.hellodoctor.booking.models.DoctorResultDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 
 import java.util.Date;
 import java.util.List;
@@ -15,6 +17,9 @@ import java.util.List;
  */
 public interface DoctorProfileRepository extends JpaRepository<DoctorProfile, Long> {
 
-    @Query()
-    List<DoctorProfile> getListDoctorBySymptomAndTime(String symptom, Date start, Date end);
+    @Query(nativeQuery = true, name = "getListDoctorBySymptomAndTime")
+    List<DoctorResultDTO> getListDoctorBySymptomAndTime(@Param("symptom") String symptom,
+                                                        @Param("startPart") Date startPart,
+                                                        @Param("endPart") Date endPart);
+
 }

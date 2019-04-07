@@ -5,6 +5,7 @@ import com.hellodoctor.booking.models.DoctorResultDTO;
 import org.springframework.data.domain.Page;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Khoa
@@ -12,5 +13,5 @@ import java.util.Date;
  */
 public interface DoctorService {
 
-    Page<DoctorResultDTO> searchDoctors(String symptom, float lat, float lng, Date start, Date end);
+    List<DoctorResultDTO> searchDoctors(String symptom, float lat, float lng, Date start, Date end);
 }

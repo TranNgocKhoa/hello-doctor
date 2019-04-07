@@ -5,12 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import java.io.Serializable;
-import java.util.Date;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 /**
  * @author Khoa
@@ -22,17 +21,15 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserProfile implements Serializable {
-    private Long id;
-    private String phoneNumber;
-    private Gender gender;
-    private Date dateOfBirth;
+@DiscriminatorValue("PAT")
+public class UserProfile extends Profile {
     private float weight;
     private float height;
-    private String description;
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
+    @OneToMany(
+            mappedBy = "patientId",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Booking> patientBooks;
 
 }

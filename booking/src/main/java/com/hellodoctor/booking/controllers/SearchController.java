@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -27,12 +30,22 @@ public class SearchController {
 
     @Autowired
     private DoctorService doctorService;
+
     @GetMapping
-    public Page<DoctorResultDTO> searchDoctor(@RequestParam(name = "symptom") String symptom,
+    public List<DoctorResultDTO> searchDoctor(@RequestParam(name = "symptom") String symptom,
                                               @RequestParam(name = "lat") float lat,
                                               @RequestParam(name = "lng") float lng,
-                                              @RequestParam(name = "date") String date,
-                                              @RequestParam(name = "time") String time) {
-        return null;
+                                              @RequestParam(name = "dateStart") String dateStart,
+                                              @RequestParam(name = "dateEnd") String dateEnd) {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date dateStartDt = df.parse(dateStart);
+            Date dateEndDt = df.parse(dateEnd);
+            return doctorService.searchDoctors(symptom, lat, lng, dateStartDt, dateEndDt);
+        }
+        catch (ParseException e) {
+           throw new RuntimeException();
+        }
+
     }
 }
