@@ -21,6 +21,6 @@ public class DistanceController {
     @PostMapping
     public DistanceResponse calculateDistanceList(@RequestBody DistanceRequest distanceRequest) {
         //TODO: call Google API to get List Distance
-        return null;
+        return googleMatrixService.getListDistance(distanceRequest);
     }
 }

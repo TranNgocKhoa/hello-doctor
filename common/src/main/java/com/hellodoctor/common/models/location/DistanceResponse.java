@@ -14,7 +14,7 @@ import java.util.List;
 public class DistanceResponse {
     private String originAddress = "";
     private List<String> destinationAddresses = new ArrayList<>();
-    private List<Float> distances = new ArrayList<>();
+    private List<Long> distances = new ArrayList<>();
 
     public String getOriginAddress() {
         return originAddress;
@@ -32,11 +32,11 @@ public class DistanceResponse {
         this.destinationAddresses = destinationAddresses;
     }
 
-    public List<Float> getDistances() {
+    public List<Long> getDistances() {
         return distances;
     }
 
-    public void setDistances(List<Float> distances) {
+    public void setDistances(List<Long> distances) {
         this.distances = distances;
     }
 }
