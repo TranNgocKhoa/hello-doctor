@@ -81,7 +81,7 @@
     </dependencyManagement>
 
     <build>
-        <finalName>hellodoctor-location-service-${version}</finalName>
+        <finalName>hellodoctor-location-service-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

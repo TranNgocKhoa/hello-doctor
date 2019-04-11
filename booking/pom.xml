@@ -106,7 +106,7 @@
     </dependencyManagement>
 
     <build>
-        <finalName>hellodoctor-booking-service-${version}</finalName>
+        <finalName>hellodoctor-booking-service-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
