@@ -48,7 +48,7 @@ public class DoctorServiceImpl implements DoctorService {
                     data.get(i).setScore(data.get(i).getScore() - (distances.get(i)/1000.0f));
                 }
             }
-            data.sort((p1, p2) -> Float.compare(p1.getScore(), p2.getScore()));
+            data.sort((p1, p2) -> (-1)*Float.compare(p1.getScore(), p2.getScore()));
         } catch (ApiRuntimeException ex) {
             log.error("Error when search at Service {}", ex.getMessage());
         }
