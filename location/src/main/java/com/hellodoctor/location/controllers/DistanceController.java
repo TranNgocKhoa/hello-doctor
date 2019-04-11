@@ -1,5 +1,6 @@
 package com.hellodoctor.location.controllers;
 
+import com.hellodoctor.common.exceptions.ApiRuntimeException;
 import com.hellodoctor.common.models.location.DistanceRequest;
 import com.hellodoctor.common.models.location.DistanceResponse;
 import com.hellodoctor.location.services.GoogleMatrixService;
@@ -21,6 +22,11 @@ public class DistanceController {
     @PostMapping
     public DistanceResponse calculateDistanceList(@RequestBody DistanceRequest distanceRequest) {
         //TODO: call Google API to get List Distance
-        return googleMatrixService.getListDistance(distanceRequest);
+        try {
+            return googleMatrixService.getListDistance(distanceRequest);
+        } catch (ApiRuntimeException ex) {
+
+        }
+        return new DistanceResponse();
     }
 }

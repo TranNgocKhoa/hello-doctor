@@ -21,34 +21,50 @@ import java.util.List;
 @EqualsAndHashCode(exclude = {"department"})
 @NamedNativeQuery(
         name="getListDoctorBySymptomAndTime",
-        query="select p.id id, " +
-                "(6 - (COUNT(DISTINCT(b.id)) * 5 / 60) + p.rate_summary) score, " +
-                "      p.phone_number phoneNumber, " +
-                "      p.description description, " +
-                "      p.`name` doctorName, " +
-                "      d.`name` department, " +
-                "      p.avatar_img avatarImg, " +
-                "      p.address_title addressTitle, " +
-                "      p.address address," +
-                "      p.rate_summary rateSummary," +
-                " p.base_price basePrice " +
-                "from department d" +
-                "      LEFT JOIN department_relate_symptom drs ON d.id = drs.department_id" +
-                "      LEFT JOIN symptom s ON drs.symptom_id = s.id" +
-                "      LEFT JOIN `profile` p ON p.department_id = d.id" +
-                "      LEFT JOIN booking b on p.id = b.doctor_id " +
-                "WHERE s.`name` LIKE CONCAT('%',lower(:symptom),'%') " +
-                "      and b.date_time < NOW() + INTERVAL 7 DAY and HOUR(b.date_time) >= HOUR(:startPart)" +
-                "      and HOUR(b.date_time) <= HOUR(:endPart)" +
-                "      ORDER BY score",
+        query="SELECT DISTINCT" +
+                "( p.id ) doctorId," +
+                "p.NAME doctorName, " +
+                "p.phone_number phoneNumber, " +
+                "p.description, " +
+                "p.avatar_img avatarImg, " +
+                "p.address_title addressTitle, " +
+                "p.address address, " +
+                "p.work_office workOffice, " +
+                "p.rate_summary rateSummary, " +
+                "p.base_price basePrice, " +
+                "d.`name` department, " +
+                "( " +
+                "6 - ( " +
+                "SELECT " +
+                "( COUNT( DISTINCT ( b.id ) ) * 5 / 60 )  " +
+                "FROM " +
+                "`profile` p " +
+                "LEFT JOIN booking b ON p.id = b.doctor_id " +
+                "WHERE " +
+                "p.id = doctorId " +
+                "AND b.date_time <= NOW( ) + INTERVAL 7 DAY AND b.date_time >= NOW() AND HOUR ( b.date_time ) >= :startPart " +
+                "AND HOUR ( b.date_time ) <= :endPart " +
+                ") + p.rate_summary  " +
+                ") score " +
+                "FROM " +
+                "department d " +
+                "LEFT JOIN department_relate_symptom drs ON d.id = drs.department_id " +
+                "LEFT JOIN symptom s ON drs.symptom_id = s.id " +
+                "LEFT JOIN `profile` p ON p.department_id = d.id " +
+                "WHERE " +
+                "s.`name` LIKE CONCAT('%',lower(:symptom),'%') " +
+                "ORDER BY " +
+                "score DESC " +
+                "LIMIT 5",
         resultSetMapping="doctorResultMapping"
 )
+
 @SqlResultSetMapping(
         name = "doctorResultMapping",
         classes = @ConstructorResult(
                 targetClass = DoctorResultDTO.class,
                 columns = {
-                        @ColumnResult(name = "id", type = Long.class),
+                        @ColumnResult(name = "doctorId", type = Long.class),
                         @ColumnResult(name = "score", type = float.class),
                         @ColumnResult(name = "phoneNumber", type = String.class),
                         @ColumnResult(name = "description", type = String.class),

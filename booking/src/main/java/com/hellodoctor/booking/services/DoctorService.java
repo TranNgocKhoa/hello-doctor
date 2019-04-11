@@ -13,5 +13,5 @@ import java.util.List;
  */
 public interface DoctorService {
 
-    List<DoctorResultDTO> searchDoctors(String symptom, float lat, float lng, Date start, Date end);
+    List<DoctorResultDTO> searchDoctors(String symptom, float lat, float lng, String partOfDay);
 }

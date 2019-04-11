@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 
 public class DoctorResultDTO {
-    private Long id;
+    private Long doctorId;
     private float score;
     private String phoneNumber;
     private String description;
@@ -31,7 +31,7 @@ public class DoctorResultDTO {
     private String department;
     private float distance;
 
-    public DoctorResultDTO(Long id,
+    public DoctorResultDTO(Long doctorId,
                            float score,
                            String phoneNumber,
                            String description,
@@ -42,7 +42,7 @@ public class DoctorResultDTO {
                            String address,
                            float rateSummary,
                            BigDecimal basePrice) {
-        this.id = id;
+        this.doctorId = doctorId;
         this.score = score;
         this.phoneNumber = phoneNumber;
         this.description = description;
