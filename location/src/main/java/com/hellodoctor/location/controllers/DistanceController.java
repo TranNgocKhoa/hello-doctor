@@ -7,13 +7,15 @@ import com.hellodoctor.location.services.GoogleMatrixService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Khoa
  * @created 4/7/2019
  */
-@RestController("/distance")
+@RestController
+@RequestMapping(value = ("/distance"))
 public class DistanceController {
 
     @Autowired

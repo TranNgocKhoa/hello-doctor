@@ -2,6 +2,7 @@ package com.hellodoctor.account.services.impl;
 
 import com.hellodoctor.account.models.CommentDTO;
 import com.hellodoctor.account.models.DoctorProfileDTO;
+import com.hellodoctor.account.models.PatientProfileDTO;
 import com.hellodoctor.account.repositories.DoctorProfileRepository;
 import com.hellodoctor.account.services.ProfileService;
 import com.hellodoctor.common.exceptions.ApiRuntimeException;
@@ -32,6 +33,11 @@ public class ProfileServiceImpl implements ProfileService {
         DoctorProfileDTO doctorProfileDTO = doctorProfileRepository.getDoctorProfileDTO(doctorId);
         doctorProfileDTO.setComments(this.getListCommentByDoctor(doctorId));
         return doctorProfileDTO;
+    }
+
+    @Override
+    public PatientProfileDTO getPatientProfile(String id) {
+        return null;
     }
 
     private List<CommentDTO> getListCommentByDoctor(Long doctorId) {

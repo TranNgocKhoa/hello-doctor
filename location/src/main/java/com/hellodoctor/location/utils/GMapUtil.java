@@ -46,4 +46,19 @@ public class GMapUtil {
                 .append(GoogleMapConstant.API_KEY);
         return url.toString();
     }
+
+    public static String buildAutoCompleteUrl(String word) {
+        StringBuilder url = new StringBuilder()
+                .append(GoogleMapConstant.URL_PLACE)
+                .append(GoogleMapConstant.AUTOCOMPLETE)
+                .append("/")
+                .append(GoogleMapConstant.JSON_OUTPUT)
+                .append("?input=")
+                .append(word)
+                .append("&types=address&components=country:vn&radius=500")
+                .append("&key=")
+                .append(GoogleMapConstant.API_KEY);
+        return url.toString();
+
+    }
 }

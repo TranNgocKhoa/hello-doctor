@@ -1,6 +1,7 @@
 package com.hellodoctor.account.controllers;
 
 import com.hellodoctor.account.models.DoctorProfileDTO;
+import com.hellodoctor.account.models.PatientProfileDTO;
 import com.hellodoctor.account.services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,11 @@ public class ProfileController {
     @GetMapping(value = "/doctor/{id}")
     public DoctorProfileDTO getDoctorProfile(@PathVariable String id) {
         return profileService.getDoctorProfile(id);
+    }
+
+    @GetMapping(value = "/patient/{id}")
+    public PatientProfileDTO getPatientProfile(@PathVariable String id) {
+        return null;
     }
 
 

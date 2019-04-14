@@ -3,17 +3,15 @@ package com.hellodoctor.location.controllers;
 import com.hellodoctor.location.models.Address;
 import com.hellodoctor.location.services.GooleGeocodingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Khoa
  * @created 3/31/2019
  */
 
-@RestController(value = "/geocoding/")
+@RestController
+@RequestMapping(value = "/geocoding")
 public class AddressController {
 
     @Autowired
