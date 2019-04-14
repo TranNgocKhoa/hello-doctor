@@ -3,6 +3,7 @@ package com.hellodoctor.account.repositories;
 import com.hellodoctor.account.entities.DoctorProfile;
 import com.hellodoctor.account.models.CommentDTO;
 import com.hellodoctor.account.models.DoctorProfileDTO;
+import com.hellodoctor.account.models.PatientProfileDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

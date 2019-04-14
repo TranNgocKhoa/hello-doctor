@@ -17,7 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PatientProfileDTO {
-    private Long id;
+    private Long patientId;
     private Gender gender;
     private String name;
     private String phoneNumber;

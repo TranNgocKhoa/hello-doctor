@@ -1,5 +1,6 @@
 package com.hellodoctor.account.controllers;
 
+import com.hellodoctor.account.entities.UserProfile;
 import com.hellodoctor.account.models.DoctorProfileDTO;
 import com.hellodoctor.account.models.PatientProfileDTO;
 import com.hellodoctor.account.services.ProfileService;
@@ -27,7 +28,7 @@ public class ProfileController {
 
     @GetMapping(value = "/patient/{id}")
     public PatientProfileDTO getPatientProfile(@PathVariable String id) {
-        return null;
+        return profileService.getPatientProfile(id);
     }
 
 

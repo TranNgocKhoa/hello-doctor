@@ -70,21 +70,6 @@ import java.util.List;
                 })
 )
 
-// private Long doctorId;
-//    private Gender gender;
-//    private String name;
-//    private String phoneNumber;
-//    private Date dateOfBirth;
-//    private String description;
-//    private String avatarImg;
-//    private String title;
-//    private String addressTitle;
-//    private String address;
-//    private String workOffice;
-//    private Float rateSummary;
-//    private BigDecimal basePrice;
-//    private String department;
-
 @NamedNativeQuery(
         name="getCommentByDoctorId",
         query="SELECT " +
