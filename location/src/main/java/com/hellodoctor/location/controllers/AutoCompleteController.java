@@ -4,6 +4,8 @@ import com.hellodoctor.common.exceptions.ApiRuntimeException;
 import com.hellodoctor.location.models.Address;
 import com.hellodoctor.location.models.AddressAC;
 import com.hellodoctor.location.services.GooglePlaceService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "autoComplete")
+@Api(value = "Auto complete controller")
 @Slf4j
 public class AutoCompleteController {
 
@@ -27,6 +30,7 @@ public class AutoCompleteController {
     private GooglePlaceService googlePlaceService;
 
     @GetMapping
+    @ApiOperation(value = "Get predictions from word that user input")
     public List<AddressAC> autoCompleteGoogleApi(@RequestParam(name = "word") String word) {
         List<AddressAC> data = null;
         try {

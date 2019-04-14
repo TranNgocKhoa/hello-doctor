@@ -2,12 +2,15 @@ package com.hellodoctor.location.services;
 
 import com.hellodoctor.common.constants.ReturnCode;
 import com.hellodoctor.common.exceptions.ApiRuntimeException;
+import com.hellodoctor.location.models.Coordinate;
 import com.hellodoctor.location.models.Address;
 import com.hellodoctor.location.utils.GMapUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -15,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
  * @created 3/31/2019
  */
 @Service
+@Slf4j
 public class GooleGeocodingService {
     @Autowired
     private RestTemplate restTemplate;
@@ -48,4 +52,41 @@ public class GooleGeocodingService {
 
         return resultAddress;
     }
+
+    public Coordinate getCoordinateFromAddress(String address) {
+        String url = GMapUtil.buildGeocoding(address);
+        Coordinate coordinate = null;
+        try {
+            String resultApi = restTemplate.getForEntity(url, String.class).getBody();
+            coordinate = this.parseJsonToCoordinate(resultApi);
+        } catch (RestClientException ex) {
+            log.error("Error on query Google API with detail {}", ex.getMessage());
+            throw new ApiRuntimeException(ex.getMessage());
+        } catch (ApiRuntimeException ex) {
+            throw ex;
+        }
+        return coordinate;
+    }
+
+    private Coordinate parseJsonToCoordinate(String json) {
+        Coordinate data = null;
+        try {
+            JSONObject parse = new JSONObject(json);
+            String status = parse.getString("status");
+            if(!status.equals("OK")) {
+                return data;
+            }
+            JSONArray jsonResults = parse.getJSONArray("results");
+            JSONObject location = jsonResults.getJSONObject(0)
+                    .getJSONObject("geometry")
+                    .getJSONObject("location");
+            data = new Coordinate(location.getFloat("lat"), location.getFloat("lng"));
+
+        } catch (Exception ex) {
+            log.error("Error on parse JSON result with detail {}", ex.getMessage());
+            throw new ApiRuntimeException(ex.getMessage());
+        }
+        return data;
+    }
+
 }

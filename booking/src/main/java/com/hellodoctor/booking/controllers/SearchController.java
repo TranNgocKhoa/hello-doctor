@@ -7,6 +7,7 @@ import com.hellodoctor.booking.services.LocationService;
 import com.hellodoctor.common.constants.PartOfDay;
 import com.hellodoctor.common.exceptions.ApiRuntimeException;
 import com.hellodoctor.common.models.location.DistanceResponse;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

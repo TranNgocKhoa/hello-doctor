@@ -27,6 +27,17 @@ public class GMapUtil {
         }
     }
 
+    public static String buildGeocoding(String address) {
+        StringBuilder url = new StringBuilder()
+                .append(GoogleMapConstant.URL_GEOCODING)
+                .append(GoogleMapConstant.JSON_OUTPUT)
+                .append("?address=")
+                .append(address)
+                .append("&key=")
+                .append(GoogleMapConstant.API_KEY);
+        return url.toString();
+    }
+
     public static String buildDistance(String origin, List<String> destinations) {
         StringBuilder destinationsParams = new StringBuilder();
         destinations.forEach(des -> {
