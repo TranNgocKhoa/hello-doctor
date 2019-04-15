@@ -17,6 +17,8 @@
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+        <swagger.version>2.9.2</swagger.version>
+        <swagger.ui.version>2.9.2</swagger.ui.version>
     </properties>
 
     <dependencies>
@@ -48,6 +50,18 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zipkin</artifactId>
         </dependency>
+        <!-- Swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.ui.version}</version>
+        </dependency>
+        <!-- Swagger -->
 
         <!--<dependency>-->
         <!--<groupId>org.springframework.boot</groupId>-->

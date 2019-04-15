@@ -4,3 +4,4 @@ docker push tranngockhoa/hellodoctor-api-gateway:latest
 docker push tranngockhoa/hellodoctor-configserver:latest
 docker push tranngockhoa/hellodoctor-location-service:latest
 docker push tranngockhoa/hellodoctor-booking-service:latest
+docker push tranngockhoa/hellodoctor-account-service:latest
