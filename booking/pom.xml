@@ -74,11 +74,13 @@
             <artifactId>springfox-swagger2</artifactId>
             <version>2.9.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.springfox.ui/springfox-swagger-ui-rfc6570 -->
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
+            <groupId>io.springfox.ui</groupId>
+            <artifactId>springfox-swagger-ui-rfc6570</artifactId>
+            <version>1.0.0</version>
         </dependency>
+
         <!-- Swagger -->
         <dependency>
             <groupId>org.modelmapper</groupId>

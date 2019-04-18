@@ -37,7 +37,8 @@ public class SearchController {
     private DoctorService doctorService;
 
 
-    @GetMapping
+    @GetMapping(params = {"symptom", "lat", "lng", "partOfDay"})
+    @ApiOperation(value = "Search Doctor By With Coordinate")
     public List<DoctorResultDTO> searchDoctor(@RequestParam(name = "symptom") String symptom,
                                               @RequestParam(name = "lat") float lat,
                                               @RequestParam(name = "lng") float lng,
@@ -45,6 +46,18 @@ public class SearchController {
         List<DoctorResultDTO> data = null;
         log.info("=====START SEARCH");
         data = doctorService.searchDoctors(symptom, lat, lng, partOfDay);
+        log.info("=====END SEARCH");
+        return data;
+    }
+
+    @GetMapping(params = {"symptom", "address", "partOfDay"})
+    @ApiOperation(value = "Search Doctor By With Address")
+    public List<DoctorResultDTO> searchDoctor(@RequestParam(name = "symptom") String symptom,
+                                              @RequestParam(name = "address") String address,
+                                              @RequestParam(name = "partOfDay") String partOfDay) {
+        List<DoctorResultDTO> data = null;
+        log.info("=====START SEARCH");
+        data = doctorService.searchDoctors(symptom, address, partOfDay);
         log.info("=====END SEARCH");
         return data;
     }

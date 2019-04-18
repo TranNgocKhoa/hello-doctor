@@ -12,6 +12,5 @@ import com.hellodoctor.common.models.vo.SnsUser;
  */
 public interface SnsService {
     HDUser authSns(SnsUser user);
-
     HDUser updateSnsUser(RegisterUserVo userVo);
 }

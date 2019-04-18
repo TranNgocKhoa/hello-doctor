@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 
 import java.util.Date;
 import java.util.List;
@@ -35,22 +36,35 @@ public class DoctorServiceImpl implements DoctorService {
     public List<DoctorResultDTO> searchDoctors(String symptom, float lat, float lng, String partOfDay) {
         List<DoctorResultDTO> data = null;
         try {
-            data =  getListDoctorBySymptomAndTime(symptom, partOfDay);
+            data =  this.getListDoctorBySymptomAndTime(symptom, partOfDay);
             log.info("========== DATABASE  ===============");
             String origin = new StringBuilder().append(lat).append(",").append(lng).toString();
             List<String> destinations = generateDestinations(data);
-
-            List<Long> distances = locationService.getListDistancesFromOneOrigin(origin, destinations).getDistances();
-            log.info("========== GOOGLE MAP ===============");
-            if(data.size() == distances.size()) {
-                for (int i = 0; i < data.size(); i++) {
-                    data.get(i).setDistance(distances.get(i)/1000.0f);
-                    data.get(i).setScore(data.get(i).getScore() - (distances.get(i)/1000.0f));
-                }
-            }
+            this.integrateDistance(data, origin, destinations);
             data.sort((p1, p2) -> (-1)*Float.compare(p1.getScore(), p2.getScore()));
         } catch (ApiRuntimeException ex) {
             log.error("Error when search at Service {}", ex.getMessage());
+        }
+        log.info("========== DATA ===============");
+        log.info(data.toString());
+        return data;
+
+    }
+
+    @Override
+    public List<DoctorResultDTO> searchDoctors(String symptom, String address, String partOfDay) {
+        List<DoctorResultDTO> data = null;
+        try {
+            data =  this.getListDoctorBySymptomAndTime(symptom, partOfDay);
+            log.info("========== DATABASE  ===============");
+            String origin = address;
+            List<String> destinations = generateDestinations(data);
+            this.integrateDistance(data, origin, destinations);
+            data.sort((p1, p2) -> (-1)*Float.compare(p1.getScore(), p2.getScore()));
+        } catch (ApiRuntimeException ex) {
+            log.error("Error when search at Service {}", ex.getMessage());
+        } catch (RestClientException ex) {
+            log.error("Error when call API at Service {}", ex.getMessage());
         }
         log.info("========== DATA ===============");
         log.info(data.toString());
@@ -69,5 +83,17 @@ public class DoctorServiceImpl implements DoctorService {
                 .collect(Collectors.toList());
     }
 
+    private void integrateDistance(List<DoctorResultDTO> data,
+                                   String origin,
+                                   List<String> destinations) throws ApiRuntimeException {
+        List<Long> distances = locationService.getListDistancesFromOneOrigin(origin, destinations).getDistances();
+        log.info("========== GOOGLE MAP ===============");
+        if(data.size() == distances.size()) {
+            for (int i = 0; i < data.size(); i++) {
+                data.get(i).setDistance(distances.get(i)/1000.0f);
+                data.get(i).setScore(data.get(i).getScore() - (distances.get(i)/1000.0f));
+            }
+        }
+    }
 }
 
