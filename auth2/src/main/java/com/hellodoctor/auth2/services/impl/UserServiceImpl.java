@@ -10,6 +10,7 @@ import com.hellodoctor.common.models.user.UserDTO;
 import com.hellodoctor.common.util.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,6 +30,9 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private JwtUtils jwtUtils;
 
 
@@ -36,7 +40,7 @@ public class UserServiceImpl implements UserService {
     public Token auth(LoginDTO login) {
         User user = null;
         try {
-            user = userRepository.findByEmailAndPassword(login.getEmail(), login.getPassword());
+            user = userRepository.findByEmailAndPassword(login.getEmail(), passwordEncoder.encode(login.getPassword()));
         } catch (Exception ex) {
             log.error("Error in {} with detail: {}", this.getClass(), ex.getMessage());
             throw new ApiRuntimeException(ex.getMessage());
