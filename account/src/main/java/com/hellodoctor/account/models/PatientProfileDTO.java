@@ -1,6 +1,6 @@
 package com.hellodoctor.account.models;
 
-import com.hellodoctor.account.entities.Gender;
+import com.hellodoctor.common.entities.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PatientProfileDTO {
+    private Long userId;
     private Long patientId;
     private Gender gender;
     private String name;

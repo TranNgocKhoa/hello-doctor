@@ -1,10 +1,7 @@
 package com.hellodoctor.account.models;
 
-import com.hellodoctor.account.entities.Gender;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.hellodoctor.common.entities.Gender;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -20,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DoctorProfileDTO {
+    private Long userId;
     private Long doctorId;
     private Gender gender;
     private String name;
@@ -36,7 +34,8 @@ public class DoctorProfileDTO {
     private String department;
     private List<CommentDTO> comments = new ArrayList<>();
 
-    public DoctorProfileDTO(Long doctorId, Gender gender, String name, String phoneNumber, Date dateOfBirth, String description, String avatarImg, String title, String addressTitle, String address, String workOffice, Float rateSummary, BigDecimal basePrice, String department) {
+    public DoctorProfileDTO(Long userId, Long doctorId, Gender gender, String name, String phoneNumber, Date dateOfBirth, String description, String avatarImg, String title, String addressTitle, String address, String workOffice, Float rateSummary, BigDecimal basePrice, String department) {
+        this.userId = userId;
         this.doctorId = doctorId;
         this.gender = gender;
         this.name = name;

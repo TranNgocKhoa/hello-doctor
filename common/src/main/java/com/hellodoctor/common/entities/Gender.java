@@ -1,4 +1,4 @@
-package com.hellodoctor.account.entities;
+package com.hellodoctor.common.entities;
 
 /**
  * @author Khoa

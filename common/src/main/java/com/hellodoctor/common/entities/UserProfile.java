@@ -1,4 +1,4 @@
-package com.hellodoctor.account.entities;
+package com.hellodoctor.common.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,4 +25,11 @@ import java.util.List;
 public class UserProfile extends Profile {
     private Float weight;
     private Float height;
+    @OneToMany(
+            mappedBy = "patientId",
+            cascade = CascadeType.ALL,
+            orphanRemoval = false
+    )
+    private List<Booking> patientBooks;
+
 }

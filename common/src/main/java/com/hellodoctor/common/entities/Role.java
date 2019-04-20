@@ -1,4 +1,4 @@
-package com.hellodoctor.account.entities;
+package com.hellodoctor.common.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author Khoa
- * @created 4/1/2019
+ * @created 3/28/2019
  */
 
 @Entity
@@ -19,15 +19,12 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Department {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(
-            mappedBy = "department",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<DoctorProfile> doctor;
+
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users = new ArrayList<>();
 }

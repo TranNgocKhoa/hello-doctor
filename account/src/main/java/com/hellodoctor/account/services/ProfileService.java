@@ -10,4 +10,5 @@ import com.hellodoctor.account.models.PatientProfileDTO;
 public interface ProfileService {
     DoctorProfileDTO getDoctorProfile(String id);
     PatientProfileDTO getPatientProfile(String id);
+    PatientProfileDTO savePatientProfile(PatientProfileDTO patientProfileDTO);
 }

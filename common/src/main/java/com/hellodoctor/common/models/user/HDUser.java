@@ -10,7 +10,6 @@ public class HDUser {
     private long id;
     private String name;
     private String email;
-    private UserType type = UserType.NORMAL;
 
     public long getId() {
         return id;
@@ -36,13 +35,6 @@ public class HDUser {
         this.email = email;
     }
 
-    public UserType getType() {
-        return type;
-    }
-
-    public void setType(UserType type) {
-        this.type = type;
-    }
 
     @Override
     public String toString() {
@@ -50,7 +42,6 @@ public class HDUser {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", type=" + type +
                 '}';
     }
 }

@@ -4,16 +4,12 @@ import com.hellodoctor.common.constants.HDConstant;
 import com.hellodoctor.common.exceptions.InvalidTokenException;
 import com.hellodoctor.common.models.UserType;
 import com.hellodoctor.common.models.user.HDUser;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.SignatureException;
+import com.hellodoctor.common.models.user.UserDTO;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.impl.TextCodec;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.security.Key;
+import java.util.*;
 
 /**
  * @author Khoa
@@ -21,28 +17,27 @@ import java.util.Map;
  */
 public class JwtUtils {
 
-    public String encode(HDUser hdUser) {
+    public String encode(UserDTO userDTO) {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("id", hdUser.getId());
-        params.put("name", hdUser.getName());
-        params.put("email", hdUser.getEmail());
-        params.put("type", hdUser.getType().name());
+        params.put("id", userDTO.getId());
+        params.put("email", userDTO.getEmail());
+        params.put("status", userDTO.getStatus());
+        params.put("roles", userDTO.getRoles());
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, HDConstant.TOKEN_EXPIRE);
         Date expire = calendar.getTime();
-
         String compact = Jwts.builder().setClaims(params)
                 .setIssuedAt(calendar.getTime())
                 .setExpiration(expire)
                 .setExpiration(calendar.getTime())
-                .signWith(SignatureAlgorithm.HS512, HDConstant.SECRET_KEY)
+                .signWith(SignatureAlgorithm.HS512, TextCodec.BASE64.decode(HDConstant.SECRET_KEY))
                 .compact();
 
         return compact;
     }
 
-    public HDUser decode(String jwt) throws InvalidTokenException {
+    public UserDTO decode(String jwt) throws InvalidTokenException {
         Claims body = null;
         try {
             body = Jwts.parser()
@@ -57,16 +52,16 @@ public class JwtUtils {
         }
 
         Long id = body.get("id", Long.class);
-        String name = body.get("name", String.class);
         String email = body.get("email", String.class);
-        String type = body.get("type", String.class);
+        String status = body.get("status", String.class);
+        List<String> roles = body.get("roles", List.class);
 
-        HDUser hdUser = new HDUser();
-        hdUser.setId(id);
-        hdUser.setName(name);
-        hdUser.setEmail(email);
-        hdUser.setType(UserType.valueOf(type));
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(id);
+        userDTO.setEmail(email);
+        userDTO.setStatus(status);
+        userDTO.setRoles(roles);
 
-        return hdUser;
+        return userDTO;
     }
 }

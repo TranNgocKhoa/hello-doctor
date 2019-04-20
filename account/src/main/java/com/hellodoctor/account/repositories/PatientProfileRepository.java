@@ -1,7 +1,6 @@
 package com.hellodoctor.account.repositories;
 
-import com.hellodoctor.account.entities.UserProfile;
-import com.hellodoctor.account.models.PatientProfileDTO;
+import com.hellodoctor.common.entities.UserProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

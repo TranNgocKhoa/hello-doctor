@@ -4,9 +4,9 @@ public class HDConstant {
 
     public static final String LOG_LINE = "=======================================================";
 
-    public static final String SECRET_KEY = "4rHWF1qMhL5caqZ6q3NBd8cWSjsPwEo1";
+    public static final String SECRET_KEY = "YU5kUmdVa1hwMnM1djh5L0I/RShIK01iUGVTaFZtWXEzdDZ3OXokQyZGKUpATmNSZlRqV25acjR1N3ghQSVEKg==";
 
-    public static final int TOKEN_EXPIRE = 60; // minute
+    public static final int TOKEN_EXPIRE = 6000; // minute
 
     public static final int CACHE_EXPIRE = 300; // second
 

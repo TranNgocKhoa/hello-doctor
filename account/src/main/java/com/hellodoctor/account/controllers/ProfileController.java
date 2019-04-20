@@ -1,14 +1,11 @@
 package com.hellodoctor.account.controllers;
 
-import com.hellodoctor.account.entities.UserProfile;
 import com.hellodoctor.account.models.DoctorProfileDTO;
 import com.hellodoctor.account.models.PatientProfileDTO;
 import com.hellodoctor.account.services.ProfileService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Khoa
@@ -31,5 +28,11 @@ public class ProfileController {
         return profileService.getPatientProfile(id);
     }
 
-
+    @PostMapping(value = "/patient")
+    @ApiOperation(value = "Create or Update Patient Profile",
+            notes = "When update, have to provide userId and profile Id"
+    )
+    public PatientProfileDTO savePatientProfile(@RequestBody PatientProfileDTO patientProfileDTO) {
+        return profileService.savePatientProfile(patientProfileDTO);
+    }
 }

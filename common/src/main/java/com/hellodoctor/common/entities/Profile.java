@@ -1,5 +1,6 @@
-package com.hellodoctor.account.entities;
+package com.hellodoctor.common.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import java.util.Date;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="profile_type", discriminatorType = DiscriminatorType.STRING)
@@ -29,4 +31,10 @@ public abstract class Profile implements Serializable {
     private String description;
     private String avatarImg;
     private String personIdNumber;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+
+
 }
