@@ -1,7 +1,6 @@
 package com.hellodoctor.account.services.impl;
 
 import com.hellodoctor.account.models.PatientProfileDTO;
-import com.hellodoctor.account.models.UserDTO;
 import com.hellodoctor.account.repositories.PatientProfileRepository;
 import com.hellodoctor.account.repositories.RoleRepository;
 import com.hellodoctor.account.repositories.UserRepository;
@@ -10,10 +9,12 @@ import com.hellodoctor.common.entities.Role;
 import com.hellodoctor.common.entities.User;
 import com.hellodoctor.common.entities.UserProfile;
 import com.hellodoctor.common.exceptions.ApiRuntimeException;
+import com.hellodoctor.common.models.user.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +52,15 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper;
 
     @Override
+    public UserDTO getInfoUserLogged() {
+        Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (o instanceof UserDTO) {
+            return (UserDTO) o;
+        }
+        return null;
+    }
+
+    @Override
     public PatientProfileDTO savePatientUser(UserDTO userDTO) throws ApiRuntimeException {
         User savedUser = this.saveUser(userDTO);
         UserProfile profile = new UserProfile();
@@ -79,7 +89,11 @@ public class UserServiceImpl implements UserService {
             }
         }
         user.setRoles(roles);
-        return userRepository.save(user);
+        User savedUer = userRepository.save(user);
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUser(savedUer);
+        patientProfileRepository.save(userProfile);
+        return savedUer;
     }
 
 

@@ -40,7 +40,10 @@ public class UserServiceImpl implements UserService {
     public Token auth(LoginDTO login) {
         User user = null;
         try {
-            user = userRepository.findByEmailAndPassword(login.getEmail(), passwordEncoder.encode(login.getPassword()));
+            user = userRepository.findByEmail(login.getEmail());
+            if (!checkIfValidOldPassword(user, login.getPassword())) {
+                user = null;
+            }
         } catch (Exception ex) {
             log.error("Error in {} with detail: {}", this.getClass(), ex.getMessage());
             throw new ApiRuntimeException(ex.getMessage());
@@ -66,5 +69,9 @@ public class UserServiceImpl implements UserService {
 
         Token token = new Token(jwt);
         return token;
+    }
+
+    private boolean checkIfValidOldPassword(User user, String oldPassword) {
+        return passwordEncoder.matches(oldPassword, user.getPassword());
     }
 }

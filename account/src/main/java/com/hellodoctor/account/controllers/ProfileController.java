@@ -3,8 +3,13 @@ package com.hellodoctor.account.controllers;
 import com.hellodoctor.account.models.DoctorProfileDTO;
 import com.hellodoctor.account.models.PatientProfileDTO;
 import com.hellodoctor.account.services.ProfileService;
+import com.hellodoctor.account.services.UserService;
+import com.hellodoctor.common.exceptions.ApiRuntimeException;
+import com.hellodoctor.common.models.user.UserDTO;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -14,9 +19,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/profile")
+@Slf4j
 public class ProfileController {
     @Autowired
     private ProfileService profileService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping(value = "/doctor/{id}")
     public DoctorProfileDTO getDoctorProfile(@PathVariable String id) {
@@ -34,5 +43,15 @@ public class ProfileController {
     )
     public PatientProfileDTO savePatientProfile(@RequestBody PatientProfileDTO patientProfileDTO) {
         return profileService.savePatientProfile(patientProfileDTO);
+    }
+
+    @GetMapping
+    @PreAuthorize("isAuthenticated()")
+    public PatientProfileDTO getOwnerPatientProfile() {
+        UserDTO userDTO = userService.getInfoUserLogged();
+        if (userDTO == null) {
+            throw new ApiRuntimeException("Authentication failed. Token is not correct!");
+        }
+        return profileService.getPatientProfile(userDTO.getId().toString());
     }
 }

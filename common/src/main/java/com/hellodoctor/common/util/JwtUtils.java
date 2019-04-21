@@ -41,7 +41,7 @@ public class JwtUtils {
         Claims body = null;
         try {
             body = Jwts.parser()
-                    .setSigningKey(HDConstant.SECRET_KEY)
+                    .setSigningKey(TextCodec.BASE64.decode(HDConstant.SECRET_KEY))
                     .parseClaimsJws(jwt).getBody();
         } catch (SignatureException ex) {
             throw new InvalidTokenException("Invalid signature");

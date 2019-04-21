@@ -3,7 +3,7 @@ package com.hellodoctor.account.services.impl;
 import com.hellodoctor.account.models.CommentDTO;
 import com.hellodoctor.account.models.DoctorProfileDTO;
 import com.hellodoctor.account.models.PatientProfileDTO;
-import com.hellodoctor.account.models.UserDTO;
+import com.hellodoctor.common.models.user.UserDTO;
 import com.hellodoctor.account.repositories.DoctorProfileRepository;
 import com.hellodoctor.account.repositories.PatientProfileRepository;
 import com.hellodoctor.account.services.ProfileService;
@@ -61,6 +61,7 @@ public class ProfileServiceImpl implements ProfileService {
             log.error("Error in {} while {}", this.getClass(), ex.getMessage());
             throw new ApiRuntimeException(ex.getMessage());
         }
+        //TODO: getUserProfileByUserId instead of profile ID
         UserProfile profile = patientProfileRepository.getUserProfileById(patientId);
         modelMapper.addConverter(patientToPatientDto);
         return modelMapper.map(profile, PatientProfileDTO.class);

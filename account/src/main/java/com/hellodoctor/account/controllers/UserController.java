@@ -1,7 +1,7 @@
 package com.hellodoctor.account.controllers;
 
 import com.hellodoctor.account.models.PatientProfileDTO;
-import com.hellodoctor.account.models.UserDTO;
+import com.hellodoctor.common.models.user.UserDTO;
 import com.hellodoctor.account.services.UserService;
 import com.hellodoctor.common.entities.User;
 import lombok.extern.slf4j.Slf4j;

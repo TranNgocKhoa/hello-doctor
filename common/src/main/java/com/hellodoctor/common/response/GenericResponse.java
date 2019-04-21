@@ -1,6 +1,7 @@
 package com.hellodoctor.common.response;
 
 import com.hellodoctor.common.constants.ReturnCode;
+import org.springframework.boot.json.JsonParser;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
@@ -48,4 +49,6 @@ import java.util.stream.Collectors;
     public void setCode(ReturnCode code) {
         this.code = code;
     }
+
+
 }
