@@ -22,7 +22,6 @@ import java.util.Date;
 @DiscriminatorColumn(name="profile_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class Profile implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Gender gender;
     private String name;
@@ -33,6 +32,7 @@ public abstract class Profile implements Serializable {
     private String personIdNumber;
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
+    @MapsId
     private User user;
 
 

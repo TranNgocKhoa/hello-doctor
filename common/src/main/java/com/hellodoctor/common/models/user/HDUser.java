@@ -1,47 +1,26 @@
 package com.hellodoctor.common.models.user;
 
 import com.hellodoctor.common.models.UserType;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Khoa
  * @created 3/23/2019
  */
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class HDUser {
-    private long id;
-    private String name;
+    private Long id;
+    private String password;
     private String email;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-    @Override
-    public String toString() {
-        return "HDUser{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
+    private String name;
+    private String status;
+    private UserType type;
+    private List<String> roles = new ArrayList<>();
 }

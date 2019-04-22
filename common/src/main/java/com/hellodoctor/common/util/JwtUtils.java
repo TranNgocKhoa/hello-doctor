@@ -2,13 +2,10 @@ package com.hellodoctor.common.util;
 
 import com.hellodoctor.common.constants.HDConstant;
 import com.hellodoctor.common.exceptions.InvalidTokenException;
-import com.hellodoctor.common.models.UserType;
 import com.hellodoctor.common.models.user.HDUser;
-import com.hellodoctor.common.models.user.UserDTO;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.TextCodec;
 
-import java.security.Key;
 import java.util.*;
 
 /**
@@ -17,12 +14,13 @@ import java.util.*;
  */
 public class JwtUtils {
 
-    public String encode(UserDTO userDTO) {
+    public String encode(HDUser hdUser) {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("id", userDTO.getId());
-        params.put("email", userDTO.getEmail());
-        params.put("status", userDTO.getStatus());
-        params.put("roles", userDTO.getRoles());
+        params.put("id", hdUser.getId());
+        params.put("email", hdUser.getEmail());
+        params.put("name", hdUser.getName());
+        params.put("status", hdUser.getStatus());
+        params.put("roles", hdUser.getRoles());
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, HDConstant.TOKEN_EXPIRE);
@@ -37,7 +35,7 @@ public class JwtUtils {
         return compact;
     }
 
-    public UserDTO decode(String jwt) throws InvalidTokenException {
+    public HDUser decode(String jwt) throws InvalidTokenException {
         Claims body = null;
         try {
             body = Jwts.parser()
@@ -53,15 +51,17 @@ public class JwtUtils {
 
         Long id = body.get("id", Long.class);
         String email = body.get("email", String.class);
+        String name = body.get("name", String.class);
         String status = body.get("status", String.class);
         List<String> roles = body.get("roles", List.class);
 
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(id);
-        userDTO.setEmail(email);
-        userDTO.setStatus(status);
-        userDTO.setRoles(roles);
+        HDUser hdUser = new HDUser();
+        hdUser.setId(id);
+        hdUser.setEmail(email);
+        hdUser.setName(name);
+        hdUser.setStatus(status);
+        hdUser.setRoles(roles);
 
-        return userDTO;
+        return hdUser;
     }
 }
